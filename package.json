@@ -22,5 +22,9 @@
   "author": {
     "name": "Joseph Gordon"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fr-animal/package-json-cleaner.git"
+  },
   "license": "MIT"
 }
