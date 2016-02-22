@@ -1,0 +1,26 @@
+{
+  "name": "package-json-cleaner",
+  "version": "0.0.5",
+  "description": "A cli tool that will recursively search your project for usages of packages and clean up your package.json file",
+  "main": "index.js",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "jsonfile": "^2.2.3",
+    "ramda": "^0.19.1",
+    "readline-sync": "^1.3.1"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.5.0",
+    "babel-register": "^6.5.2"
+  },
+  "bin": {
+    "package-json-cleaner": "./index.js"
+  },
+  "scripts": {
+    "test": "find ./src/test -name '*.spec.js' | xargs mocha --compilers js:babel-register"
+  },
+  "author": {
+    "name": "Joseph Gordon"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "package-2": "1.0"
+  },
+  "devDependencies": {
+    "dev-package-1": "1.0",
+    "dev-package-2": "1.0",
+    "dev-package-3": "1.0"
+  }
+}
