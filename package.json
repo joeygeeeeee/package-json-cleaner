@@ -1,8 +1,8 @@
 {
   "name": "package-json-cleaner",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "A cli tool that will recursively search your project for usages of packages and clean up your package.json file",
-  "main": "index.js",
+  "main": "./lib/package-json-cleaner.js",
   "dependencies": {
     "chalk": "^1.1.1",
     "jsonfile": "^2.2.3",

@@ -7,11 +7,7 @@ import chalk from 'chalk';
 import R from 'ramda';
 import jsonfile from 'jsonfile';
 
-import getPackageList from './lib/get-package-list';
-import getPackageUsages from './lib/get-package-usages';
-import getUnusedPackages from './lib/get-unused-packages';
-import getDubiousPackages from './lib/get-dubious-packages';
-import removePackages from './lib/remove-packages';
+import {getPackageList, getPackageUsages, getUnusedPackages, getDubiousPackages, removePackages} from './lib/package-json-cleaner';
 
 var filePath;
 

@@ -25,25 +25,7 @@ var _jsonfile = require('jsonfile');
 
 var _jsonfile2 = _interopRequireDefault(_jsonfile);
 
-var _getPackageList = require('./lib/get-package-list');
-
-var _getPackageList2 = _interopRequireDefault(_getPackageList);
-
-var _getPackageUsages = require('./lib/get-package-usages');
-
-var _getPackageUsages2 = _interopRequireDefault(_getPackageUsages);
-
-var _getUnusedPackages = require('./lib/get-unused-packages');
-
-var _getUnusedPackages2 = _interopRequireDefault(_getUnusedPackages);
-
-var _getDubiousPackages = require('./lib/get-dubious-packages');
-
-var _getDubiousPackages2 = _interopRequireDefault(_getDubiousPackages);
-
-var _removePackages = require('./lib/remove-packages');
-
-var _removePackages2 = _interopRequireDefault(_removePackages);
+var _packageJsonCleaner = require('./lib/package-json-cleaner');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66,16 +48,16 @@ if (process.argv[2]) {
 
 var packageJsonFile = _jsonfile2.default.readFileSync(filePath);
 
-var packageList = (0, _getPackageList2.default)(packageJsonFile);
+var packageList = (0, _packageJsonCleaner.getPackageList)(packageJsonFile);
 
 var segs = filePath.split('/');
 var dir = segs.slice(0, segs.length - 1).join('/');
 
-(0, _getPackageUsages2.default)(dir, packageList).then(function (packageUsages) {
+(0, _packageJsonCleaner.getPackageUsages)(dir, packageList).then(function (packageUsages) {
 
-    var rules = [/require\(["'][A-Za-z0-9-.]+["']\)/, /import [A-Za-z0-9_{}, ]+ from ['"][A-Za-z0-9-.]+['"];?/];
-    var unused = (0, _getUnusedPackages2.default)(packageUsages, packageList);
-    var dubiousUsages = (0, _getDubiousPackages2.default)(packageUsages, rules);
+    var rules = [/require\(["'][A-Za-z0-9-]+["']\)/, /import [A-Za-z0-9_{}, ]+ from ['"][A-Za-z0-9-]+['"];?/];
+    var unused = (0, _packageJsonCleaner.getUnusedPackages)(packageUsages, packageList);
+    var dubiousUsages = (0, _packageJsonCleaner.getDubiousPackages)(packageUsages, rules);
 
     for (var dubiousUsage in dubiousUsages) {
 
@@ -95,7 +77,7 @@ var dir = segs.slice(0, segs.length - 1).join('/');
     }
 
     if (_readlineSync2.default.keyInYN('Would you like to remove the following packages from your package.json file? \n' + _chalk2.default.red(unused.join('\n')))) {
-        var cleanFile = (0, _removePackages2.default)(packageJsonFile, unused);
+        var cleanFile = (0, _packageJsonCleaner.removePackages)(packageJsonFile, unused);
         _jsonfile2.default.writeFileSync(filePath, cleanFile, { spaces: 2 });
     }
 }).catch(console.log);
