@@ -73,7 +73,7 @@ var dir = segs.slice(0, segs.length - 1).join('/');
 
 (0, _getPackageUsages2.default)(dir, packageList).then(function (packageUsages) {
 
-    var rules = [/require\(["'][A-Za-z0-9-]+["']\)/, /import [A-Za-z0-9_{}, ]+ from ['"][A-Za-z0-9-]+['"];?/];
+    var rules = [/require\(["'][A-Za-z0-9-.]+["']\)/, /import [A-Za-z0-9_{}, ]+ from ['"][A-Za-z0-9-.]+['"];?/];
     var unused = (0, _getUnusedPackages2.default)(packageUsages, packageList);
     var dubiousUsages = (0, _getDubiousPackages2.default)(packageUsages, rules);
 
