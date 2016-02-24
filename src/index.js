@@ -6,12 +6,22 @@ import readlineSync from 'readline-sync';
 import chalk from 'chalk';
 import R from 'ramda';
 import jsonfile from 'jsonfile';
+import program from 'commander';
 
 import {getPackageList, getPackageUsages, getUnusedPackages, getDubiousPackages, removePackages} from './lib/package-json-cleaner';
 
+function list(val) {
+    return val.split(',');
+}
+
+program
+    .version('0.0.1')
+    .option('-e, --exclude [dir]', 'Exclude directory', list, [])
+    .parse(process.argv);
+
 var filePath;
 
-if (process.argv[2]) {
+if (process.argv[2] && process.argv[2][0] !== '-') {
     var filePath = process.argv[2];
     if (fs.existsSync(filePath)) {
         if (fs.lstatSync(filePath).isDirectory()) {
@@ -33,7 +43,7 @@ var packageList = getPackageList(packageJsonFile);
 var segs = filePath.split('/');
 var dir = segs.slice(0, segs.length - 1).join('/');
 
-getPackageUsages(dir, packageList).then((packageUsages) => {
+getPackageUsages(dir, packageList, program.exclude).then((packageUsages) => {
 
     var rules = [/require\(["'][A-Za-z0-9-.]+["']\)/, /import [A-Za-z0-9_{}, ]+ from ['"][A-Za-z0-9-.]+['"];?/];
     var unused = getUnusedPackages(packageUsages, packageList);
