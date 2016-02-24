@@ -11,4 +11,10 @@ and then
 ```bash
 package-json-cleaner
 ```
+
 At the moment package-json-cleaner considers `require("something");` and `import something from 'something';` to be valid usages of a module. If it finds modules from your `package.json` that are mentioned in other string constants it will ask you if it is a valid usage or not.
+
+### Options
+||||
+| ------------- |:-------------:| -----:|
+|`-e`,`--exclude`|exclude directories (comma delimited)|`package-json-cleaner -e src/assets,dist`|
