@@ -35,7 +35,7 @@ var dir = segs.slice(0, segs.length - 1).join('/');
 
 getPackageUsages(dir, packageList).then((packageUsages) => {
 
-    var rules = [/require\(["'][A-Za-z0-9-]+["']\)/, /import [A-Za-z0-9_{}, ]+ from ['"][A-Za-z0-9-]+['"];?/];
+    var rules = [/require\(["'][A-Za-z0-9-.]+["']\)/, /import [A-Za-z0-9_{}, ]+ from ['"][A-Za-z0-9-.]+['"];?/];
     var unused = getUnusedPackages(packageUsages, packageList);
     var dubiousUsages = getDubiousPackages(packageUsages, rules);
 
